@@ -1,0 +1,2450 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>University of Makati - Food Hub</title>
+    <style>
+        :root {
+            --primary-blue: #134252;
+            --secondary-orange: #FF6B35;
+            --light-bg: #F8F9FA;
+            --cream-bg: #FCFCF9;
+            --text-dark: #1F2121;
+            --text-secondary: #626C71;
+            --border-color: rgba(94, 82, 64, 0.2);
+            --card-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background-color: var(--light-bg);
+            color: var(--text-dark);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Navigation Bar */
+        .navbar {
+            background-color: var(--primary-blue);
+            padding: 1rem 3rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            transition: all 0.5s ease;
+        }
+
+        .logo-section {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .logo-circle {
+            width: 40px;
+            height: 40px;
+            background: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            overflow: hidden;
+        }
+
+        .logo-circle img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .site-title {
+            color: white;
+            font-size: 1.25rem;
+            font-weight: 600;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2.5rem;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.95rem;
+            transition: opacity 0.5s ease;
+            position: relative;
+        }
+
+        .nav-links a:hover {
+            opacity: 0.8;
+        }
+
+        .login-btn {
+            background: var(--secondary-orange);
+            color: white;
+            padding: 0.65rem 2rem;
+            border: none;
+            border-radius: 6px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            cursor: pointer;
+            transition: all 0.5s ease;
+            text-decoration: none;
+        }
+
+        .login-btn:hover {
+            background: #e55a2a;
+            transform: translateY(-1px);
+        }
+
+        /* Updated Hero Section */
+        .hero {
+            margin-top: 70px;
+            position: relative;
+            min-height: 80vh;
+            display: flex;
+            align-items: center;
+            overflow: hidden;
+        }
+
+        .hero-bg-slider {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+        }
+
+        .slider-container {
+            width: 100%;
+            height: 100%;
+            position: relative;
+        }
+
+        .slider-track {
+            display: flex;
+            width: 400%; /* 4 images */
+            height: 100%;
+            transition: transform 1.2s ease-in-out;
+        }
+
+        .slider-slide {
+            width: 25%; /* Each slide takes 25% of the container */
+            height: 100%;
+            flex-shrink: 0;
+            position: relative;
+        }
+
+        .slider-slide::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to right, rgba(19, 66, 82, 0.7) 0%, rgba(19, 66, 82, 0.3) 100%);
+        }
+
+        .slider-slide img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            padding: 3rem;
+            max-width: 50%;
+            color: white;
+        }
+
+        .umak-label {
+            color: var(--secondary-orange);
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            display: block;
+        }
+
+        .hero-title {
+            font-size: 3.5rem;
+            font-weight: 700;
+            line-height: 1.1;
+            margin-bottom: 1rem;
+        }
+
+        .hero-title .highlight {
+            color: var(--secondary-orange);
+        }
+
+        .hero-description {
+            font-size: 1.1rem;
+            line-height: 1.7;
+            margin-bottom: 2rem;
+            opacity: 0.95;
+            max-width: 600px;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .btn-primary {
+            background: var(--secondary-orange);
+            color: white;
+            padding: 0.9rem 2rem;
+            border: none;
+            border-radius: 6px;
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.5s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn-primary:hover {
+            background: #e55a2a;
+            transform: translateY(-2px);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: white;
+            padding: 0.9rem 2rem;
+            border: 2px solid white;
+            border-radius: 6px;
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.5s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn-secondary:hover {
+            background: white;
+            color: var(--primary-blue);
+        }
+
+        .slider-controls {
+            position: absolute;
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 10px;
+            z-index: 10;
+        }
+
+        .slider-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.5);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .slider-dot.active {
+            background: white;
+            transform: scale(1.2);
+        }
+
+        .skip-queue-badge {
+            position: absolute;
+            bottom: 80px;
+            right: 40px;
+            background: white;
+            padding: 1rem 2rem;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            animation: float 5s ease-in-out infinite;
+            z-index: 10;
+        }
+
+        .skip-queue-badge .icon {
+            font-size: 1.5rem;
+        }
+
+        .skip-queue-text {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .skip-queue-text strong {
+            color: var(--primary-blue);
+            font-size: 1rem;
+        }
+
+        .skip-queue-text span {
+            color: var(--text-secondary);
+            font-size: 0.85rem;
+        }
+
+        /* Stats Section */
+        .stats-bar {
+            background: var(--secondary-orange);
+            padding: 2rem 3rem;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            color: white;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 700;
+            display: block;
+            margin-bottom: 0.25rem;
+        }
+
+        .stat-label {
+            font-size: 1rem;
+            font-weight: 500;
+        }
+
+        /* Common Section Styles */
+        .section-label {
+            color: var(--secondary-orange);
+            font-size: 0.95rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            display: block;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            color: var(--primary-blue);
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        .section-description {
+            max-width: 800px;
+            margin: 0 auto 3rem;
+            color: var(--text-secondary);
+            font-size: 1.05rem;
+            line-height: 1.8;
+        }
+
+        /* About Section */
+        .about-section {
+            padding: 5rem 3rem;
+            background: white;
+            text-align: center;
+        }
+
+        .how-it-works {
+            max-width: 1000px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 2rem;
+        }
+
+        .step-card {
+            text-align: center;
+        }
+
+        .step-number {
+            width: 60px;
+            height: 60px;
+            background: var(--secondary-orange);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin: 0 auto 1rem;
+        }
+
+        .step-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .step-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--text-dark);
+            margin-bottom: 0.5rem;
+        }
+
+        .step-description {
+            font-size: 0.95rem;
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+
+        /* Features Section */
+        .features-section {
+            padding: 5rem 3rem;
+            background: var(--cream-bg);
+        }
+
+        .features-grid {
+            max-width: 1200px;
+            margin: 3rem auto 0;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 2rem;
+        }
+
+        .feature-card {
+            background: white;
+            padding: 2rem 1.5rem;
+            border-radius: 12px;
+            text-align: center;
+            box-shadow: var(--card-shadow);
+            transition: all 0.5s ease;
+            border: 1px solid var(--border-color);
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+        }
+
+        .feature-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .feature-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--text-dark);
+            margin-bottom: 0.75rem;
+        }
+
+        .feature-description {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+
+        /* Food Options Section */
+        .food-options-section {
+            padding: 5rem 3rem;
+            background: white;
+        }
+
+        .food-grid {
+            max-width: 1200px;
+            margin: 3rem auto 0;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1.5rem;
+        }
+
+        .food-card {
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: var(--card-shadow);
+            transition: all 0.5s ease;
+            cursor: pointer;
+            position: relative;
+            height: 250px;
+        }
+
+        .food-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        .food-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .food-placeholder {
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+        }
+
+        .food-label {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(to top, rgba(0, 0, 0, 0.8), transparent);
+            color: white;
+            padding: 2rem 1rem 1rem;
+            font-weight: 600;
+        }
+
+        .food-category {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            opacity: 0.9;
+            display: block;
+            margin-bottom: 0.25rem;
+        }
+
+        .food-title {
+            font-size: 1.2rem;
+        }
+
+        /* Testimonials Section */
+        .testimonials-section {
+            padding: 5rem 3rem;
+            background: var(--cream-bg);
+        }
+
+        .testimonials-grid {
+            max-width: 1200px;
+            margin: 3rem auto 0;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+        }
+
+        .testimonial-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: var(--card-shadow);
+            border: 1px solid var(--border-color);
+        }
+
+        .testimonial-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .testimonial-avatar {
+            width: 50px;
+            height: 50px;
+            background: var(--primary-blue);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            font-size: 1.2rem;
+        }
+
+        .testimonial-info {
+            flex: 1;
+        }
+
+        .testimonial-name {
+            font-weight: 600;
+            color: var(--text-dark);
+            margin-bottom: 0.25rem;
+        }
+
+        .testimonial-role {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+        }
+
+        .testimonial-year {
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+        }
+
+        .testimonial-stars {
+            color: var(--secondary-orange);
+            font-size: 1.1rem;
+            margin-bottom: 1rem;
+        }
+
+        .testimonial-text {
+            font-style: italic;
+            color: var(--text-secondary);
+            line-height: 1.7;
+            font-size: 0.95rem;
+        }
+
+        /* FAQ Section */
+        .faq-section {
+            padding: 5rem 3rem;
+            background: white;
+        }
+
+        .faq-container {
+            max-width: 900px;
+            margin: 3rem auto 0;
+        }
+
+        .faq-item {
+            border-bottom: 1px solid var(--border-color);
+            padding: 1.5rem 0;
+        }
+
+        .faq-question {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            font-weight: 600;
+            color: var(--primary-blue);
+            font-size: 1rem;
+        }
+
+        .faq-question:hover {
+            color: var(--secondary-orange);
+        }
+
+        .faq-icon {
+            font-size: 1.2rem;
+            transition: transform 0.5s ease;
+        }
+
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease;
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+
+        .faq-item.active .faq-answer {
+            max-height: 500px;
+            margin-top: 1rem;
+        }
+
+        .faq-item.active .faq-icon {
+            transform: rotate(180deg);
+        }
+
+        /* CTA Section */
+        .cta-section {
+            padding: 5rem 3rem;
+            background: var(--primary-blue);
+            text-align: center;
+            color: white;
+        }
+
+        .cta-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        .cta-description {
+            font-size: 1.1rem;
+            margin-bottom: 2rem;
+            opacity: 0.95;
+        }
+
+        .cta-features {
+            display: flex;
+            justify-content: center;
+            gap: 3rem;
+            margin: 2rem 0;
+        }
+
+        .cta-feature {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .cta-check {
+            color: #4ade80;
+            font-size: 1.2rem;
+        }
+
+        /* Developers Section */
+        .developers-section {
+            padding: 5rem 3rem;
+            background: white;
+        }
+
+        .developers-grid {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2.5rem;
+        }
+
+        .developer-card {
+            background: var(--cream-bg);
+            padding: 2.5rem 2rem;
+            border-radius: 12px;
+            text-align: center;
+            box-shadow: var(--card-shadow);
+            border: 1px solid var(--border-color);
+            transition: all 0.5s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .developer-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
+        }
+
+        .developer-avatar {
+            width: 120px;
+            height: 120px;
+            margin: 0 auto 1.5rem;
+            background: linear-gradient(135deg, var(--primary-blue) 0%, #1a5d73 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+            border: 4px solid var(--secondary-orange);
+            transition: all 0.5s ease;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .developer-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 50%;
+        }
+
+        .developer-card:hover .developer-avatar {
+            transform: scale(1.1);
+            border-color: var(--primary-blue);
+        }
+
+        .developer-name {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: var(--text-dark);
+            margin-bottom: 0.5rem;
+        }
+
+        .developer-role {
+            color: var(--text-secondary);
+            font-size: 1rem;
+            font-weight: 500;
+            margin-bottom: 1rem;
+        }
+
+        .developer-bio {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+        }
+
+        .developer-skills {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            justify-content: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .skill-tag {
+            background: var(--primary-blue);
+            color: white;
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+
+        .developer-social {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .social-link {
+            width: 35px;
+            height: 35px;
+            background: var(--primary-blue);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            transition: all 0.5s ease;
+            font-size: 1rem;
+        }
+
+        .social-link:hover {
+            background: var(--secondary-orange);
+            transform: translateY(-2px);
+        }
+
+        .developer-contact {
+            margin-top: 1rem;
+            padding-top: 1rem;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .contact-email {
+            color: var(--primary-blue);
+            font-size: 0.9rem;
+            text-decoration: none;
+        }
+
+        .contact-email:hover {
+            color: var(--secondary-orange);
+        }
+
+        .developer-highlight {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--secondary-orange), var(--primary-blue));
+        }
+
+        .lead-developer .developer-highlight {
+            background: linear-gradient(90deg, #FFD700, var(--secondary-orange));
+        }
+
+        /* Contact Section */
+        .contact-section {
+            padding: 5rem 3rem;
+            background: var(--cream-bg);
+        }
+
+        .contact-grid {
+            max-width: 1000px;
+            margin: 3rem auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+        }
+
+        .contact-info {
+            background: white;
+            padding: 2.5rem;
+            border-radius: 12px;
+            box-shadow: var(--card-shadow);
+            border: 1px solid var(--border-color);
+        }
+
+        .contact-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--primary-blue);
+            margin-bottom: 1.5rem;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .contact-icon {
+            font-size: 1.5rem;
+            color: var(--secondary-orange);
+        }
+
+        .contact-details h4 {
+            font-weight: 600;
+            color: var(--text-dark);
+            margin-bottom: 0.25rem;
+        }
+
+        .contact-details p {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+        }
+
+        .contact-hours {
+            margin-top: 2rem;
+            padding-top: 2rem;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .contact-form {
+            background: white;
+            padding: 2.5rem;
+            border-radius: 12px;
+            box-shadow: var(--card-shadow);
+            border: 1px solid var(--border-color);
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: var(--text-dark);
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            font-size: 0.95rem;
+            font-family: inherit;
+            transition: border-color 0.5s ease;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--primary-blue);
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        .submit-btn {
+            width: 100%;
+            background: var(--secondary-orange);
+            color: white;
+            padding: 1rem;
+            border: none;
+            border-radius: 6px;
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.5s ease;
+        }
+
+        .submit-btn:hover {
+            background: #e55a2a;
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--primary-blue);
+            color: white;
+            padding: 3rem 3rem 1.5rem;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 3rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-column h3 {
+            margin-bottom: 1rem;
+            font-size: 1.1rem;
+        }
+
+        .footer-column p {
+            opacity: 0.9;
+            line-height: 1.7;
+            font-size: 0.95rem;
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 0.75rem;
+        }
+
+        .footer-links a {
+            color: white;
+            text-decoration: none;
+            opacity: 0.9;
+            transition: opacity 0.5s ease;
+        }
+
+        .footer-links a:hover {
+            opacity: 1;
+        }
+
+        .footer-bottom {
+            max-width: 1200px;
+            margin: 2rem auto 0;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.2);
+            text-align: center;
+            opacity: 0.8;
+            font-size: 0.9rem;
+        }
+
+        /* Login Modal */
+        .login-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+
+        .login-modal.active {
+            display: flex;
+            opacity: 1;
+        }
+
+        .modal-content {
+            background: white;
+            padding: 3rem;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            max-width: 400px;
+            width: 90%;
+            text-align: center;
+            transform: scale(0.9);
+            transition: transform 0.5s ease;
+        }
+
+        .login-modal.active .modal-content {
+            transform: scale(1);
+        }
+
+        .modal-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--primary-blue);
+            margin-bottom: 2rem;
+        }
+
+        .modal-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .modal-btn {
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 6px;
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: block;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .modal-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.5s;
+        }
+
+        .modal-btn:hover::before {
+            left: 100%;
+        }
+
+        .modal-btn.student {
+            background: var(--primary-blue);
+            color: white;
+        }
+
+        .modal-btn.admin {
+            background: var(--secondary-orange);
+            color: white;
+        }
+
+        .modal-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+        }
+
+        .close-modal {
+            background: #f8f9fa;
+            color: var(--text-secondary);
+            margin-top: 1rem;
+        }
+
+        /* Page Transition Overlay */
+        .page-transition {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--primary-blue);
+            z-index: 3000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transform: translateY(100%);
+            transition: transform 2s ease;
+        }
+
+        .page-transition.active {
+            transform: translateY(0);
+        }
+
+        .transition-logo {
+            width: 80px;
+            height: 80px;
+            background: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            animation: pulse 1.5s infinite;
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes fadeInRight {
+            from {
+                opacity: 0;
+                transform: translateX(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0px);
+            }
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+
+        @keyframes pulse {
+            0% {
+                transform: scale(0.95);
+                box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.7);
+            }
+            70% {
+                transform: scale(1);
+                box-shadow: 0 0 0 10px rgba(255, 255, 255, 0);
+            }
+            100% {
+                transform: scale(0.95);
+                box-shadow: 0 0 0 0 rgba(255, 255, 255, 0);
+            }
+        }
+
+        .animate-on-scroll {
+            opacity: 0;
+        }
+
+        .animate-on-scroll.animated {
+            animation-duration: 0.8s;
+            animation-fill-mode: both;
+        }
+
+        .hero-content {
+            animation: fadeInLeft 1s ease-out;
+        }
+
+        .stat-item {
+            animation: fadeInUp 0.6s ease-out both;
+        }
+
+        .stat-item:nth-child(1) { animation-delay: 0.1s; }
+        .stat-item:nth-child(2) { animation-delay: 0.2s; }
+        .stat-item:nth-child(3) { animation-delay: 0.3s; }
+        .stat-item:nth-child(4) { animation-delay: 0.4s; }
+
+        /* Responsive Design */
+        @media (max-width: 1024px) {
+            .hero-content {
+                max-width: 60%;
+            }
+
+            .features-grid,
+            .food-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .how-it-works {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .testimonials-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .developers-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .contact-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .navbar {
+                padding: 1rem 1.5rem;
+            }
+
+            .nav-links {
+                gap: 1rem;
+            }
+
+            .hero {
+                min-height: 70vh;
+            }
+
+            .hero-content {
+                max-width: 100%;
+                padding: 2rem 1.5rem;
+                text-align: center;
+            }
+
+            .hero-title {
+                font-size: 2.5rem;
+            }
+
+            .hero-buttons {
+                justify-content: center;
+            }
+
+            .skip-queue-badge {
+                position: relative;
+                bottom: auto;
+                right: auto;
+                margin: 2rem auto 0;
+                max-width: 300px;
+            }
+
+            .stats-bar {
+                flex-wrap: wrap;
+                gap: 2rem;
+                padding: 2rem 1.5rem;
+            }
+
+            .features-grid,
+            .food-grid,
+            .how-it-works,
+            .developers-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .cta-features {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr;
+            }
+
+            .modal-content {
+                padding: 2rem;
+            }
+        }
+        
+        /* Mobile-specific adjustments */
+        @media (max-width: 480px) {
+            .navbar {
+                padding: 0.75rem 1rem;
+            }
+            
+            .site-title {
+                font-size: 1rem;
+            }
+            
+            .nav-links {
+                gap: 0.75rem;
+            }
+            
+            .login-btn {
+                padding: 0.5rem 1rem;
+                font-size: 0.85rem;
+            }
+            
+            .hero {
+                min-height: 60vh;
+                margin-top: 60px;
+            }
+            
+            .hero-content {
+                padding: 1.5rem;
+                text-align: center;
+            }
+            
+            .hero-title {
+                font-size: 2rem;
+            }
+            
+            .hero-description {
+                font-size: 1rem;
+            }
+            
+            .hero-buttons {
+                flex-direction: column;
+                gap: 0.75rem;
+            }
+            
+            .btn-primary, .btn-secondary {
+                padding: 0.75rem 1.5rem;
+                width: 100%;
+                text-align: center;
+            }
+            
+            .skip-queue-badge {
+                position: relative;
+                margin: 2rem auto 0;
+                max-width: 280px;
+            }
+            
+            .stats-bar {
+                flex-direction: column;
+                gap: 1.5rem;
+                padding: 1.5rem 1rem;
+            }
+            
+            .stat-number {
+                font-size: 2rem;
+            }
+            
+            .section-title {
+                font-size: 1.75rem;
+            }
+            
+            .section-description {
+                font-size: 0.95rem;
+                margin-bottom: 2rem;
+            }
+            
+            /* Ensure all touch targets are at least 44px */
+            button, .btn-primary, .btn-secondary, .login-btn, .modal-btn {
+                min-height: 44px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+            
+            /* Improve form inputs for mobile */
+            .form-group input, 
+            .form-group textarea {
+                font-size: 16px; /* Prevents zoom on iOS */
+            }
+            
+            .food-card {
+                height: 200px;
+            }
+            
+            .food-label {
+                padding: 1.5rem 0.75rem 0.75rem;
+            }
+            
+            .food-title {
+                font-size: 1rem;
+            }
+            
+            .modal-content {
+                margin: 1rem;
+                padding: 1.5rem;
+                width: calc(100% - 2rem);
+            }
+            
+            .modal-buttons {
+                gap: 0.75rem;
+            }
+            
+            .modal-btn {
+                padding: 0.75rem 1rem;
+            }
+            
+            .footer {
+                padding: 2rem 1rem 1rem;
+            }
+            
+            .footer-content {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+            
+            .contact-section {
+                padding: 3rem 1rem;
+            }
+            
+            .contact-grid {
+                gap: 2rem;
+            }
+            
+            .contact-info, .contact-form {
+                padding: 1.5rem;
+            }
+            
+            .developers-section {
+                padding: 3rem 1rem;
+            }
+            
+            .developers-grid {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+            
+            .developer-card {
+                padding: 1.5rem 1rem;
+            }
+            
+            .developer-avatar {
+                width: 100px;
+                height: 100px;
+            }
+        }
+
+        /* Additional styles for touch devices */
+        .touch-device .food-card,
+        .touch-device .feature-card,
+        .touch-device .developer-card {
+            cursor: pointer;
+        }
+
+        .touch-device button:hover,
+        .touch-device .btn-primary:hover,
+        .touch-device .btn-secondary:hover {
+            transform: none; /* Remove hover effects on touch devices */
+        }
+
+        .touch-device .food-card:hover,
+        .touch-device .feature-card:hover,
+        .touch-device .developer-card:hover {
+            transform: none;
+            box-shadow: var(--card-shadow);
+        }
+
+        /* Active state for touch devices */
+        .touch-device button:active,
+        .touch-device .btn-primary:active,
+        .touch-device .btn-secondary:active {
+            transform: scale(0.98);
+        }
+
+        .touch-device .food-card:active,
+        .touch-device .feature-card:active,
+        .touch-device .developer-card:active {
+            transform: scale(0.98);
+        }
+
+        /* Additional improvements for tablets */
+        @media (max-width: 768px) and (min-width: 481px) {
+            .hero-title {
+                font-size: 2.75rem;
+            }
+            
+            .features-grid,
+            .food-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 1.5rem;
+            }
+            
+            .how-it-works {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 1.5rem;
+            }
+            
+            .developers-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 1.5rem;
+            }
+        }
+
+        /* Prevent horizontal scrolling */
+        html, body {
+            max-width: 100%;
+            overflow-x: hidden;
+        }
+
+        /* Improve image responsiveness */
+        img {
+            max-width: 100%;
+            height: auto;
+        }
+
+        /* Better handling for the slider on mobile */
+        @media (max-width: 768px) {
+            .slider-controls {
+                bottom: 20px;
+            }
+            
+            .slider-dot {
+                width: 10px;
+                height: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Page Transition Overlay -->
+    <div class="page-transition" id="pageTransition">
+        <div class="transition-logo">
+            <img src="users/6.png" alt="UMak Logo" onerror="this.style.display='none'; this.parentNode.innerHTML='🍽️';">
+        </div>
+    </div>
+
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <div class="logo-section">
+            <div class="logo-circle">
+                <img src="users/Foodhub_notext.png" alt="UMak Logo" onerror="this.style.display='none'; this.parentNode.innerHTML='🍽️';">
+            </div>
+            <div class="site-title">University of Makati - Food Hub</div>
+        </div>
+        <div class="nav-links">
+            <a href="#home">Home</a>
+            <a href="#about">About</a>
+            <a href="#contact">Contact Us</a>
+            <a href="#" class="login-btn" id="loginBtn">Log In</a>
+        </div>
+    </nav>
+
+    <!-- Login Modal -->
+    <div class="login-modal" id="loginModal">
+        <div class="modal-content">
+            <h2 class="modal-title">Hello Herons & Lady Herons</h2>
+            <div class="modal-buttons">
+                <a href="users/Studlogin.php" class="modal-btn student" data-transition="student">Student Login</a>
+                <a href="users/signup.php" class="modal-btn admin" data-transition="admin">Create Student Account</a>
+                <button class="modal-btn close-modal" id="closeModal">Cancel</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Updated Hero Section -->
+    <section id="home" class="hero">
+        <!-- Background Image Slider -->
+        <div class="hero-bg-slider">
+            <div class="slider-container">
+                <div class="slider-track" id="sliderTrack">
+                    <div class="slider-slide">
+                        <img src="users/Umak_Dining_area.jpg" alt="Food Hub Dining Area">
+                    </div>
+                    <div class="slider-slide">
+                        <img src="users/cafe.jpg" alt="Filipino Meals">
+                    </div>
+                    <div class="slider-slide">
+                        <img src="users/umakfood.jpg" alt="Campus Cafeteria">
+                    </div>
+                    <div class="slider-slide">
+                        <img 
+                            src="users/6.png" 
+                            alt="UMak Food Hub"
+                            onerror="this.style.display='none'; this.parentNode.innerHTML='<div style=&quot;width:100%;height:100%;background:linear-gradient(135deg,#f5f7fa 0%,#c3cfe2 100%);display:flex;align-items:center;justify-content:center;font-size:4rem;&quot;>🍽️</div>';">
+                    </div>
+                </div>
+            </div>
+            <div class="slider-controls">
+                <div class="slider-dot active" data-slide="0"></div>
+                <div class="slider-dot" data-slide="1"></div>
+                <div class="slider-dot" data-slide="2"></div>
+                <div class="slider-dot" data-slide="3"></div>
+            </div>
+        </div>
+
+        <!-- Hero Content -->
+        <div class="hero-content">
+            <span class="umak-label">University of Makati<br>Food Hub System</span>
+            <h1 class="hero-title">
+                Welcome<br>
+                <span class="highlight">Herons</span>
+            </h1>
+            <p class="hero-description">
+                Your convenient queuing and ordering system for campus dining. Browse menus, order ahead, pick up when ready, and save time!
+            </p>
+            <div class="hero-buttons">
+                <button class="btn-primary" id="getStartedBtn">Get Started</button>
+                <a href="#about" class="btn-secondary">Learn More</a>
+            </div>
+        </div>
+
+        <!-- Skip Queue Badge -->
+        <div class="skip-queue-badge">
+            <span class="icon">🍽️</span>
+            <div class="skip-queue-text">
+                <strong>Skip the Queue</strong>
+                <span>Order ahead, pick up when ready</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Bar -->
+    <div class="stats-bar">
+        <div class="stat-item">
+            <span class="stat-number">5000+</span>
+            <span class="stat-label">Active Students</span>
+        </div>
+        <div class="stat-item">
+            <span class="stat-number">15+</span>
+            <span class="stat-label">Food Outlets</span>
+        </div>
+        <div class="stat-item">
+            <span class="stat-number">1200+</span>
+            <span class="stat-label">Daily Orders</span>
+        </div>
+        <div class="stat-item">
+            <span class="stat-number">30%</span>
+            <span class="stat-label">Time Saved</span>
+        </div>
+    </div>
+
+    <!-- About Section -->
+    <section id="about" class="about-section">
+        <span class="section-label">About Food Hub</span>
+        <h2 class="section-title">How It Works</h2>
+        <p class="section-description">
+            The University of Makati Food Hub is a queuing system and ordering platform designed to help students view and order meals from stalls and cafeterias within the university, saving time and reducing wait times.
+        </p>
+        <div class="how-it-works">
+            <div class="step-card">
+                <div class="step-number">1</div>
+                <div class="step-icon">🛒</div>
+                <h3 class="step-title">Browse Menus</h3>
+                <p class="step-description">View available items from all campus food outlets</p>
+            </div>
+            <div class="step-card">
+                <div class="step-number">2</div>
+                <div class="step-icon">📝</div>
+                <h3 class="step-title">Place Your Order</h3>
+                <p class="step-description">Select items and place your order with just a few taps</p>
+            </div>
+            <div class="step-card">
+                <div class="step-number">3</div>
+                <div class="step-icon">📊</div>
+                <h3 class="step-title">Track Queue Status</h3>
+                <p class="step-description">Monitor your order status and estimated wait time</p>
+            </div>
+            <div class="step-card">
+                <div class="step-number">4</div>
+                <div class="step-icon">✅</div>
+                <h3 class="step-title">Pick Up Your Order</h3>
+                <p class="step-description">Get notified when your food is ready to collect</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features-section">
+        <div style="text-align: center;">
+            <span class="section-label">Why Choose Food Hub?</span>
+            <h2 class="section-title">Experience the future of campus dining with our smart features</h2>
+        </div>
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-icon">🛒</div>
+                <h3 class="feature-title">Easy Ordering</h3>
+                <p class="feature-description">Browse menus from all campus stalls and cafeterias in one place</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">⏱️</div>
+                <h3 class="feature-title">Smart Queue System</h3>
+                <p class="feature-description">Know your wait time and skip the physical queue</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">👁️</div>
+                <h3 class="feature-title">View All Menus</h3>
+                <p class="feature-description">See what's available across all food outlets before you decide</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">✅</div>
+                <h3 class="feature-title">Quick Pickup</h3>
+                <p class="feature-description">Get notified when your order is ready for collection</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">📱</div>
+                <h3 class="feature-title">Mobile Friendly</h3>
+                <p class="feature-description">Access from any device, anytime, anywhere on campus</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">🔔</div>
+                <h3 class="feature-title">Real-time Notifications</h3>
+                <p class="feature-description">Get instant updates on your order status</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">💰</div>
+                <h3 class="feature-title">Multiple Payment Options</h3>
+                <p class="feature-description">Pay with cash, card, or digital wallets</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">⭐</div>
+                <h3 class="feature-title">Favorites & Reorder</h3>
+                <p class="feature-description">Save your favorite meals for quick ordering</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Food Options Section -->
+    <section class="food-options-section">
+        <div style="text-align: center;">
+            <span class="section-label">Explore Our Food Options</span>
+            <h2 class="section-title">From traditional Filipino meals to cafe favorites</h2>
+        </div>
+        <div class="food-grid">
+            <div class="food-card animate-on-scroll">
+                <img src="users/OIP-1.jpg" alt="Filipino Meals" class="food-image">
+                <div class="food-label">
+                    <span class="food-category">Main Course</span>
+                    <div class="food-title">Filipino Meals</div>
+                </div>
+            </div>
+            <div class="food-card animate-on-scroll">
+                <div class="food-placeholder">🍢</div>
+                <div class="food-label">
+                    <span class="food-category">Snacks</span>
+                    <div class="food-title">Street Food Favorites</div>
+                </div>
+            </div>
+            <div class="food-card animate-on-scroll">
+                <div class="food-placeholder">☕</div>
+                <div class="food-label">
+                    <span class="food-category">Beverages</span>
+                    <div class="food-title">Coffee &amp; Pastries</div>
+                </div>
+            </div>
+            <div class="food-card animate-on-scroll">
+                <img src="users/863cce1921d53b62a63e7058028e7555.jpg" alt="Campus Cafeteria" class="food-image">
+                <div class="food-label">
+                    <span class="food-category">Dining Hall</span>
+                    <div class="food-title">Campus Cafeteria</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section class="testimonials-section">
+        <div style="text-align: center;">
+            <span class="section-label">What Herons Are Saying</span>
+            <h2 class="section-title">Hear from students who love Food Hub</h2>
+        </div>
+        <div class="testimonials-grid">
+            <div class="testimonial-card">
+                <div class="testimonial-header">
+                    <div class="testimonial-avatar">MS</div>
+                    <div class="testimonial-info">
+                        <div class="testimonial-name">Maria Santos</div>
+                        <div class="testimonial-role">BS Computer Science</div>
+                        <div class="testimonial-year">3rd Year</div>
+                    </div>
+                </div>
+                <div class="testimonial-stars">★★★★★</div>
+                <p class="testimonial-text">
+                    "Food Hub saved me so much time! I can order between classes and just pick up my food without waiting in long lines."
+                </p>
+            </div>
+            <div class="testimonial-card">
+                <div class="testimonial-header">
+                    <div class="testimonial-avatar">JD</div>
+                    <div class="testimonial-info">
+                        <div class="testimonial-name">Juan Dela Cruz</div>
+                        <div class="testimonial-role">BS Business Administration</div>
+                        <div class="testimonial-year">2nd Year</div>
+                    </div>
+                </div>
+                <div class="testimonial-stars">★★★★★</div>
+                <p class="testimonial-text">
+                    "Amazing system! I love that I can see all the menus in one place. No more walking around to check what's available."
+                </p>
+            </div>
+            <div class="testimonial-card">
+                <div class="testimonial-header">
+                    <div class="testimonial-avatar">SR</div>
+                    <div class="testimonial-info">
+                        <div class="testimonial-name">Sofia Reyes</div>
+                        <div class="testimonial-role">BS Nursing</div>
+                        <div class="testimonial-year">4th Year</div>
+                    </div>
+                </div>
+                <div class="testimonial-stars">★★★★★</div>
+                <p class="testimonial-text">
+                    "The queue system is a game changer. I know exactly when my order will be ready and can plan my day better."
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="faq-section">
+        <div style="text-align: center;">
+            <span class="section-label">Frequently Asked Questions</span>
+            <h2 class="section-title">Everything you need to know about Food Hub</h2>
+        </div>
+        <div class="faq-container">
+            <div class="faq-item">
+                <div class="faq-question">
+                    <span>How do I place an order?</span>
+                    <span class="faq-icon">▼</span>
+                </div>
+                <div class="faq-answer">
+                    Simply log in to your account, browse the available food options, select your items, and complete your order. You'll receive a confirmation and estimated pickup time.
+                </div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question">
+                    <span>How does the queue system work?</span>
+                    <span class="faq-icon">▼</span>
+                </div>
+                <div class="faq-answer">
+                    When you place an order, you're added to a virtual queue. The system calculates your estimated wait time based on current orders and notifies you when your food is ready for pickup.
+                </div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question">
+                    <span>What payment methods are accepted?</span>
+                    <span class="faq-icon">▼</span>
+                </div>
+                <div class="faq-answer">
+                    We accept cash, credit/debit cards, and digital wallets. Some food outlets may have specific payment preferences, which will be indicated during checkout.
+                </div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question">
+                    <span>Can I cancel or modify my order?</span>
+                    <span class="faq-icon">▼</span>
+                </div>
+                <div class="faq-answer">
+                    You can modify or cancel your order within 5 minutes of placing it. After that, the order enters preparation and cannot be changed.
+                </div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question">
+                    <span>What if I miss my pickup time?</span>
+                    <span class="faq-icon">▼</span>
+                </div>
+                <div class="faq-answer">
+                    If you miss your pickup window, your order will be held for up to 30 minutes. After that, it may be discarded, and you may be charged a small fee for wasted food.
+                </div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question">
+                    <span>Is there a minimum order amount?</span>
+                    <span class="faq-icon">▼</span>
+                </div>
+                <div class="faq-answer">
+                    Most food outlets have a minimum order amount of ₱50. This helps ensure efficient operations and timely service for all students.
+                </div>
+            </div>
+        </div>
+        <div style="text-align: center; margin-top: 3rem;">
+            <p style="color: var(--text-secondary); margin-bottom: 1.5rem;">Still have questions?</p>
+            <button class="btn-primary">Contact Support</button>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <h2 class="cta-title">Ready to Skip the Queue?</h2>
+        <p class="cta-description">
+            Join thousands of Herons who are already saving time with Food Hub. Start ordering smarter today!
+        </p>
+        <div class="cta-features">
+            <div class="cta-feature">
+                <span class="cta-check">✓</span>
+                <span>Free to use</span>
+            </div>
+            <div class="cta-feature">
+                <span class="cta-check">✓</span>
+                <span>No hidden fees</span>
+            </div>
+            <div class="cta-feature">
+                <span class="cta-check">✓</span>
+                <span>Instant notifications</span>
+            </div>
+        </div>
+        <div style="margin-top: 2rem;">
+            <button class="btn-primary" id="ctaGetStarted">Create Account</button>
+        </div>
+    </section>
+
+    <!-- Developers Section -->
+    <section class="developers-section">
+        <div style="text-align: center; margin-bottom: 3rem;">
+            <span class="section-label">Meet the Team</span>
+            <h2 class="section-title">The Developers Behind Food Hub</h2>
+            <p class="section-description" style="max-width: 800px; margin: 1rem auto 0;">
+                Our dedicated team of developers and designers worked tirelessly to create a seamless dining experience for the University of Makati community.
+            </p>
+        </div>
+        <div class="developers-grid">
+            <!-- Developer 1 - Project Lead -->
+            <div class="developer-card lead-developer">
+                <div class="developer-highlight"></div>
+                <div class="developer-avatar">
+                    <img src="users/dev1.jpg" alt="Karl Martin Antonio - Project Lead" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                    <div style="display: none; align-items: center; justify-content: center; width: 100%; height: 100%; background: linear-gradient(135deg, var(--primary-blue) 0%, #1a5d73 100%); color: white; border-radius: 50%; font-size: 2.5rem;">
+                        👨‍💻
+                    </div>
+                </div>
+                <h3 class="developer-name">Karl Martin Antonio</h3>
+                <p class="developer-role">Project Leader / Backend Developer</p>
+                <p class="developer-bio">
+                    3rd year Information technology student leading the team with strong organizational skills. Coordinates development tasks and ensures project milestones are met.
+                </p>
+            
+                <div class="developer-contact">
+                    <a href="mailto:kantonio.k12153272@umak.edu.ph" class="contact-email">kantonio.k12153272@umak.edu.ph</a>
+                </div>
+                <div class="developer-social">
+                    <a href="#" class="social-link">📘</a>
+                    <a href="#" class="social-link">🐙</a>
+                    <a href="#" class="social-link">💼</a>
+                </div>
+            </div>
+
+            <!-- Developer 2 - Frontend Specialist -->
+            <div class="developer-card">
+                <div class="developer-highlight"></div>
+                <div class="developer-avatar">
+                    <img src="users/dev2.jpg" alt="Lourd Fredrick Arcangel - Frontend Developer" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                    <div style="display: none; align-items: center; justify-content: center; width: 100%; height: 100%; background: linear-gradient(135deg, var(--primary-blue) 0%, #1a5d73 100%); color: white; border-radius: 50%; font-size: 2.5rem;">
+                        👩‍💻
+                    </div>
+                </div>
+                <h3 class="developer-name">Lourd Fredrick Arcangel</h3>
+                <p class="developer-role">Frontend Developer / UI Designer</p>
+                <p class="developer-bio">
+                    3rd year student specializing in frontend development. Creates modern web interfaces using HTML, CSS, and JavaScript for optimal user experience.
+                </p>
+                
+                <div class="developer-contact">
+                    <a href="mailto:larcangel.a12345460@umak.edu.ph" class="contact-email">larcangel.a12345460@umak.edu.ph</a>
+                </div>
+                <div class="developer-social">
+                    <a href="#" class="social-link">📘</a>
+                    <a href="#" class="social-link">🐙</a>
+                    <a href="#" class="social-link">🎨</a>
+                </div>
+            </div>
+
+            <!-- Developer 3 - Backend Expert -->
+            <div class="developer-card">
+                <div class="developer-highlight"></div>
+                <div class="developer-avatar">
+                    <img src="users/dev3.jpg" alt="Hans Jomel Lim - Backend Developer" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                    <div style="display: none; align-items: center; justify-content: center; width: 100%; height: 100%; background: linear-gradient(135deg, var(--primary-blue) 0%, #1a5d73 100%); color: white; border-radius: 50%; font-size: 2.5rem;">
+                        👨‍💻
+                    </div>
+                </div>
+                <h3 class="developer-name">Hans Jomel Lim</h3>
+                <p class="developer-role">Backend Developer / Database Designer</p>
+                <p class="developer-bio">
+                    3rd year IT student focused on server-side development. Works on API design and database architecture to support application functionality.
+                </p>
+
+                <div class="developer-contact">
+                    <a href="mailto:hlim.a12345313@umak.edu.ph" class="contact-email">hlim.a12345313@umak.edu.ph</a>
+                </div>
+                <div class="developer-social">
+                    <a href="#" class="social-link">📘</a>
+                    <a href="#" class="social-link">🐙</a>
+                    <a href="#" class="social-link">🔧</a>
+                </div>
+            </div>
+
+            <!-- Developer 4 - Frontend Developer -->
+            <div class="developer-card">
+                <div class="developer-highlight"></div>
+                <div class="developer-avatar">
+                    <img src="users/dev4.jpg" alt="Vincent Mariano - Frontend Developer" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                    <div style="display: none; align-items: center; justify-content: center; width: 100%; height: 100%; background: linear-gradient(135deg, var(--primary-blue) 0%, #1a5d73 100%); color: white; border-radius: 50%; font-size: 2.5rem;">
+                        👩‍💻
+                    </div>
+                </div>
+                <h3 class="developer-name">Vincent Mariano</h3>
+                <p class="developer-role">Frontend Developer / UI Designer</p>
+                <p class="developer-bio">
+                    3rd year student contributing to frontend development. Implements responsive designs and works on user interface components.
+                </p>
+                
+                <div class="developer-contact">
+                    <a href="mailto:vmariano.k12154115@umak.edu.ph" class="contact-email">vmariano.k12154115@umak.edu.ph</a>
+                </div>
+                <div class="developer-social">
+                    <a href="#" class="social-link">📘</a>
+                    <a href="#" class="social-link">🐙</a>
+                    <a href="#" class="social-link">🔒</a>
+                </div>
+            </div>
+
+            <!-- Developer 5 - UI/UX Designer -->
+            <div class="developer-card">
+                <div class="developer-highlight"></div>
+                <div class="developer-avatar">
+                    <img src="users/dev5.jpg" alt="Christian Andrei Navarrete - UI/UX Designer" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                    <div style="display: none; align-items: center; justify-content: center; width: 100%; height: 100%; background: linear-gradient(135deg, var(--primary-blue) 0%, #1a5d73 100%); color: white; border-radius: 50%; font-size: 2.5rem;">
+                        👨‍💻
+                    </div>
+                </div>
+                <h3 class="developer-name">Christian Andrei Navarrete</h3>
+                <p class="developer-role">UI/UX Designer</p>
+                <p class="developer-bio">
+                    3rd year student focused on user experience design. Creates intuitive interfaces and ensures the application meets user needs and expectations.
+                </p>
+
+                <div class="developer-contact">
+                    <a href="mailto:cnavarrete.k12152205@umak.edu.ph" class="contact-email">cnavarrete.k12152205@umak.edu.ph</a>
+                </div>
+                <div class="developer-social">
+                    <a href="#" class="social-link">📘</a>
+                    <a href="#" class="social-link">🐙</a>
+                    <a href="#" class="social-link">✅</a>
+                </div>
+            </div>
+
+            <!-- Developer 6 - Backend & Database -->
+            <div class="developer-card">
+                <div class="developer-highlight"></div>
+                <div class="developer-avatar">
+                    <img src="users/dev6.jpg" alt="Janssen Rhandel Samong - Backend Developer" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                    <div style="display: none; align-items: center; justify-content: center; width: 100%; height: 100%; background: linear-gradient(135deg, var(--primary-blue) 0%, #1a5d73 100%); color: white; border-radius: 50%; font-size: 2.5rem;">
+                        👩‍💻
+                    </div>
+                </div>
+                <h3 class="developer-name">Janssen Rhandel Samong</h3>
+                <p class="developer-role">Backend Developer / Database Architect</p>
+                <p class="developer-bio">
+                    3rd year IT student working on backend systems and database design. Ensures data integrity and system performance for the application.
+                </p>
+
+                <div class="developer-contact">
+                    <a href="mailto:jsamong.k12147998@umak.edu.ph" class="contact-email">jsamong.k12147998@umak.edu.ph</a>
+                </div>
+                <div class="developer-social">
+                    <a href="#" class="social-link">📘</a>
+                    <a href="#" class="social-link">🐙</a>
+                    <a href="#" class="social-link">📊</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Team Collaboration Section -->
+        <div style="text-align: center; margin-top: 4rem; padding: 3rem; background: var(--cream-bg); border-radius: 12px;">
+            <h3 style="color: var(--primary-blue); margin-bottom: 1rem;">Our Development Philosophy</h3>
+            <p style="color: var(--text-secondary); max-width: 800px; margin: 0 auto; line-height: 1.7;">
+                We believe in creating technology that serves people. Our team follows agile development methodologies, 
+                prioritizes user feedback, and maintains open communication to deliver a system that truly meets the needs 
+                of the University of Makati community.
+            </p>
+            <div style="display: flex; justify-content: center; gap: 2rem; margin-top: 2rem; flex-wrap: wrap;">
+                <div style="text-align: center;">
+                    <div style="font-size: 2rem; margin-bottom: 0.5rem;">🚀</div>
+                    <div style="font-weight: 600; color: var(--primary-blue);">Agile Development</div>
+                </div>
+                <div style="text-align: center;">
+                    <div style="font-size: 2rem; margin-bottom: 0.5rem;">💡</div>
+                    <div style="font-weight: 600; color: var(--primary-blue);">User-Centered</div>
+                </div>
+                <div style="text-align: center;">
+                    <div style="font-size: 2rem; margin-bottom: 0.5rem;">🔒</div>
+                    <div style="font-weight: 600; color: var(--primary-blue);">Security First</div>
+                </div>
+                <div style="text-align: center;">
+                    <div style="font-size: 2rem; margin-bottom: 0.5rem;">📱</div>
+                    <div style="font-weight: 600; color: var(--primary-blue);">Mobile Friendly</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact-section">
+        <div style="text-align: center; margin-bottom: 3rem;">
+            <span class="section-label">Contact Us</span>
+            <h2 class="section-title">Have questions? We'd love to hear from you</h2>
+        </div>
+        <div class="contact-grid">
+            <div class="contact-info">
+                <h3 class="contact-title">Get in Touch</h3>
+                <div class="contact-item">
+                    <div class="contact-icon">📍</div>
+                    <div class="contact-details">
+                        <h4>Address</h4>
+                        <p>J.P. Rizal Extension, West Rembo<br>Makati City, Metro Manila</p>
+                    </div>
+                </div>
+                <div class="contact-item">
+                    <div class="contact-icon">📧</div>
+                    <div class="contact-details">
+                        <h4>Email</h4>
+                        <p>foodhub@umak.edu.ph</p>
+                    </div>
+                </div>
+                <div class="contact-item">
+                    <div class="contact-icon">📞</div>
+                    <div class="contact-details">
+                        <h4>Phone</h4>
+                        <p>(02) 8883-1863</p>
+                    </div>
+                </div>
+                <div class="contact-item">
+                    <div class="contact-icon">📘</div>
+                    <div class="contact-details">
+                        <h4>Facebook</h4>
+                        <p>@UMakFoodHub</p>
+                    </div>
+                </div>
+                <div class="contact-hours">
+                    <h4 style="color: var(--primary-blue); font-weight: 600; margin-bottom: 0.75rem;">Operating Hours</h4>
+                    <p style="margin-bottom: 0.5rem;">Monday - Friday: 7:00 AM - 7:00 PM</p>
+                    <p style="margin-bottom: 0.5rem;">Saturday: 8:00 AM - 5:00 PM</p>
+                    <p>Sunday: Closed</p>
+                </div>
+            </div>
+            <div class="contact-form">
+                <h3 class="contact-title">Send us a Message</h3>
+                <form>
+                    <div class="form-group">
+                        <label>Name</label>
+                        <input type="text" placeholder="Your name">
+                    </div>
+                    <div class="form-group">
+                        <label>Email</label>
+                        <input type="email" placeholder="your.email@umak.edu.ph">
+                    </div>
+                    <div class="form-group">
+                        <label>Subject</label>
+                        <input type="text" placeholder="What's this about?">
+                    </div>
+                    <div class="form-group">
+                        <label>Message</label>
+                        <textarea placeholder="Tell us more..."></textarea>
+                    </div>
+                    <button type="submit" class="submit-btn">Send Message</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-column">
+                <h3>🍽️ UMak Food Hub</h3>
+                <p>Making campus dining easier for Herons</p>
+            </div>
+            <div class="footer-column">
+                <h3>Quick Links</h3>
+                <ul class="footer-links">
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                    <li><a href="#">FAQs</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h3>Support</h3>
+                <ul class="footer-links">
+                    <li><a href="#">Help Center</a></li>
+                    <li><a href="#">Terms of Service</a></li>
+                    <li><a href="#">Privacy Policy</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h3>Contact Info</h3>
+                <ul class="footer-links">
+                    <li>foodhub@umak.edu.ph</li>
+                    <li>(02) 8883-1863</li>
+                    <li>J.P. Rizal Extension</li>
+                    <li>Makati City</li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 University of Makati Food Hub. All rights reserved.</p>
+            <p style="margin-top: 0.5rem;">Made with ❤️ for Herons</p>
+        </div>
+    </footer>
+
+    <script>
+        // Image Slider Functionality
+        const sliderTrack = document.getElementById('sliderTrack');
+        const sliderDots = document.querySelectorAll('.slider-dot');
+        let currentSlide = 0;
+        const totalSlides = 4;
+        let slideInterval;
+
+        function goToSlide(slideIndex) {
+            currentSlide = slideIndex;
+            sliderTrack.style.transform = `translateX(-${currentSlide * 25}%)`;
+            
+            // Update active dot
+            sliderDots.forEach((dot, index) => {
+                dot.classList.toggle('active', index === currentSlide);
+            });
+        }
+
+        function nextSlide() {
+            currentSlide = (currentSlide + 1) % totalSlides;
+            goToSlide(currentSlide);
+        }
+
+        // Auto slide every 5 seconds
+        function startSlider() {
+            slideInterval = setInterval(nextSlide, 5000);
+        }
+
+        function stopSlider() {
+            clearInterval(slideInterval);
+        }
+
+        // Initialize slider
+        startSlider();
+
+        // Add click events to dots
+        sliderDots.forEach((dot, index) => {
+            dot.addEventListener('click', () => {
+                stopSlider();
+                goToSlide(index);
+                startSlider();
+            });
+        });
+
+        // Pause slider on hover
+        const sliderContainer = document.querySelector('.hero-bg-slider');
+        sliderContainer.addEventListener('mouseenter', stopSlider);
+        sliderContainer.addEventListener('mouseleave', startSlider);
+
+        // Login Modal Functionality
+        const loginBtn = document.getElementById('loginBtn');
+        const getStartedBtn = document.getElementById('getStartedBtn');
+        const ctaGetStarted = document.getElementById('ctaGetStarted');
+        const loginModal = document.getElementById('loginModal');
+        const closeModal = document.getElementById('closeModal');
+        const pageTransition = document.getElementById('pageTransition');
+
+        // Show modal when login button is clicked
+        loginBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            loginModal.classList.add('active');
+        });
+
+        // Show modal when get started buttons are clicked
+        getStartedBtn.addEventListener('click', function() {
+            loginModal.classList.add('active');
+        });
+
+        ctaGetStarted.addEventListener('click', function() {
+            loginModal.classList.add('active');
+        });
+
+        // Close modal when close button is clicked
+        closeModal.addEventListener('click', function() {
+            loginModal.classList.remove('active');
+        });
+
+        // Close modal when clicking outside the modal content
+        loginModal.addEventListener('click', function(e) {
+            if (e.target === loginModal) {
+                loginModal.classList.remove('active');
+            }
+        });
+
+        // Enhanced login/signup transitions
+        document.querySelectorAll('.modal-btn[data-transition]').forEach(button => {
+            button.addEventListener('click', function(e) {
+                e.preventDefault();
+                const transitionType = this.getAttribute('data-transition');
+                
+                // Add transition class based on button type
+                if (transitionType === 'student') {
+                    pageTransition.style.background = 'var(--primary-blue)';
+                } else if (transitionType === 'admin') {
+                    pageTransition.style.background = 'var(--secondary-orange)';
+                } else if (transitionType === 'signup') {
+                    pageTransition.style.background = '#f8f9fa';
+                }
+                
+                // Show the transition overlay
+                pageTransition.classList.add('active');
+                
+                // After transition, redirect to the appropriate page
+                setTimeout(() => {
+                    window.location.href = this.href;
+                }, 4500);
+            });
+        });
+
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // FAQ accordion functionality
+        document.querySelectorAll('.faq-question').forEach(question => {
+            question.addEventListener('click', function() {
+                const faqItem = this.parentElement;
+                faqItem.classList.toggle('active');
+            });
+        });
+
+        // Animate on scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('animated');
+                    entry.target.style.animationName = 'fadeInUp';
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.animate-on-scroll').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Add animation to developer cards and other elements
+        document.querySelectorAll('.developer-card, .feature-card, .step-card, .testimonial-card').forEach(el => {
+            el.classList.add('animate-on-scroll');
+            observer.observe(el);
+        });
+
+        // Image fallback handling for developer avatars
+        document.querySelectorAll('.developer-avatar img').forEach(img => {
+            img.addEventListener('error', function() {
+                this.style.display = 'none';
+                const fallback = this.nextElementSibling;
+                if (fallback) {
+                    fallback.style.display = 'flex';
+                }
+            });
+        });
+
+        // Improve touch experience
+        document.addEventListener('DOMContentLoaded', function() {
+            // Add touch-friendly class to body for CSS targeting
+            if ('ontouchstart' in window || navigator.maxTouchPoints) {
+                document.body.classList.add('touch-device');
+            }
+            
+            // Prevent zoom on double tap (for iOS)
+            let lastTouchEnd = 0;
+            document.addEventListener('touchend', function(event) {
+                const now = (new Date()).getTime();
+                if (now - lastTouchEnd <= 300) {
+                    event.preventDefault();
+                }
+                lastTouchEnd = now;
+            }, false);
+            
+            // Improve slider for touch devices
+            let touchStartX = 0;
+            let touchEndX = 0;
+            
+            const slider = document.querySelector('.slider-container');
+            
+            slider.addEventListener('touchstart', function(e) {
+                touchStartX = e.changedTouches[0].screenX;
+            }, false);
+            
+            slider.addEventListener('touchend', function(e) {
+                touchEndX = e.changedTouches[0].screenX;
+                handleSwipe();
+            }, false);
+            
+            function handleSwipe() {
+                const swipeThreshold = 50;
+                
+                if (touchEndX < touchStartX - swipeThreshold) {
+                    // Swipe left - next slide
+                    nextSlide();
+                }
+                
+                if (touchEndX > touchStartX + swipeThreshold) {
+                    // Swipe right - previous slide
+                    currentSlide = (currentSlide - 1 + totalSlides) % totalSlides;
+                    goToSlide(currentSlide);
+                }
+            }
+        });
+    </script>
+</body>
+</html>

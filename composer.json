@@ -1,0 +1,9 @@
+{
+    "require": {
+        "league/oauth2-client": "^2.8",
+        "firebase/php-jwt": "^6.0",
+        "guzzlehttp/guzzle": "^7.0",
+        "google/apiclient": "2.15",
+        "phpmailer/phpmailer": "^7.0"
+    }
+}
